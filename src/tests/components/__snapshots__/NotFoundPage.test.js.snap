@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render NotFoundPage 1`] = `
+<div>
+  <h1>
+    This is 404 page
+  </h1>
+  <Link
+    replace={false}
+    to={
+      Object {
+        "pathname": "/edit/7",
+      }
+    }
+  >
+    Edit expense 7
+  </Link>
+</div>
+`;
