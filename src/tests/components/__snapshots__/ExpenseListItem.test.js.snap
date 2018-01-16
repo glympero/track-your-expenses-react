@@ -12,9 +12,9 @@ exports[`should render ExpenseListItem with props 1`] = `
   </h4>
   <p>
     Cost: 
-    100
-    , created At: 
-    0
+    $1.00
+    - Created At: 
+    1st January 1970u
   </p>
 </div>
 `;
