@@ -6,6 +6,7 @@ import configureStore from './store/configureStore';
 import { addExpense } from './actions/expenses';
 import { setTextFilter, sortByAmount } from './actions/filters';
 import getVisibleExpenses from './selectors/expenses';
+import './firebase/firebase';
 
 import 'normalize.css/normalize.css';
 import './styles/styles.scss';
