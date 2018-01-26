@@ -7,7 +7,7 @@ const addExpense = (expense) => ({
 });
 
 // This returns function and works because we use redux thunk
-export const startAddExpense = (expenseData = {}) => {
+const startAddExpense = (expenseData = {}) => {
     return (dispatch) => {
         const {
             description = '', 
@@ -27,7 +27,7 @@ export const startAddExpense = (expenseData = {}) => {
             dispatch(addExpense({
                 id: ref.key,
                 ...expense
-            }))
+            }));
         });
     };
 };
@@ -45,4 +45,28 @@ const editExpense = (id, updates) => ({
     updates
 });
 
-export { addExpense, removeExpense, editExpense };
+//SET_EXPENSES
+const setExpenses = (expenses) => ({
+    type: 'SET_EXPENSES',
+    expenses
+})
+
+const startSetExpenses = () => {
+    return (dispatch) => {
+        return database.ref('expenses').once('value').then((snapshot) => {
+            const expenses = [];
+            const val = snapshot.val();
+            snapshot.forEach((child) => {
+                expenses.push({
+                    id: child.key,
+                    ...child.val()
+                });
+            });
+            dispatch(setExpenses(expenses));
+        }).catch((error) => {
+            return 'Error reading from database';
+        });
+    }
+}
+
+export { addExpense, removeExpense, editExpense, startAddExpense, setExpenses, startSetExpenses};

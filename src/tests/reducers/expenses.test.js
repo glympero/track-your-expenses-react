@@ -63,6 +63,7 @@ test('shound edit an existing expense', () => {
             id: expenses[1].id,
             description: 'March Credit',
             amount: 10000,
+            note: 'This is a new note',
             createdAt: moment(0).subtract(2, 'days').valueOf()
         },
         expenses[2]
@@ -85,4 +86,13 @@ test('shound not edit an expense with wrong id', () => {
     const state = expensesReducer(expenses, action);
 
     expect(state).toEqual(expenses)
-})
+});
+
+test('should set expenses', () => {
+    const action = {
+        type: 'SET_EXPENSES',
+        expenses: [expenses[1]]
+    }
+    const state = expensesReducer(expenses, action);
+    expect(state).toEqual([expenses[1]]);
+});
