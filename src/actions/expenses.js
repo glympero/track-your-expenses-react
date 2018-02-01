@@ -8,7 +8,8 @@ const addExpense = (expense) => ({
 
 // This returns function and works because we use redux thunk
 const startAddExpense = (expenseData = {}) => {
-    return (dispatch) => {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
         const {
             description = '', 
             note = '', 
@@ -23,7 +24,7 @@ const startAddExpense = (expenseData = {}) => {
             createdAt 
         };
         //return is used for testing (promise chaining)
-        return database.ref('expenses').push(expense).then((ref) => {
+        return database.ref(`users/${uid}/expenses`).push(expense).then((ref) => {
             dispatch(addExpense({
                 id: ref.key,
                 ...expense
@@ -39,8 +40,9 @@ const removeExpense = ({ id } = {}) => ({
 });
 
 const startRemoveExpense = ({ id } = {}) => {
-    return (dispatch) => {
-        return database.ref(`expenses/${id}`).remove().then(() => {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
+        return database.ref(`users/${uid}/expenses/${id}`).remove().then(() => {
             dispatch(removeExpense({id}));
         });
     }
@@ -55,8 +57,9 @@ const editExpense = (id, updates) => ({
 });
 
 const startEditExpense = (id, updates) => {
-    return (dispatch) => {
-        return database.ref(`expenses/${id}`).update(updates)
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
+        return database.ref(`users/${uid}/expenses/${id}`).update(updates)
             .then(() => {
                 dispatch(editExpense(id, updates));
             }).catch((error) => {
@@ -72,8 +75,9 @@ const setExpenses = (expenses) => ({
 })
 
 const startSetExpenses = () => {
-    return (dispatch) => {
-        return database.ref('expenses').once('value').then((snapshot) => {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
+        return database.ref(`users/${uid}/expenses`).once('value').then((snapshot) => {
             const expenses = [];
             const val = snapshot.val();
             snapshot.forEach((child) => {

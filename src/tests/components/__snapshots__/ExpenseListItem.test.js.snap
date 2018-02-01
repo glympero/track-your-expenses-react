@@ -14,7 +14,7 @@ exports[`should render ExpenseListItem with props 1`] = `
     Cost: 
     $1.00
     - Created At: 
-    1st January 1970u
+    1st January 1970
   </p>
 </div>
 `;
