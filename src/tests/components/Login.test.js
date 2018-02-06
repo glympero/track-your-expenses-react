@@ -9,7 +9,7 @@ test('should render Login correctly', () => {
     const wrapper = shallow(<Login />);
 
     expect(wrapper.find('button').length).toBe(1);
-    expect(wrapper.find('button').text()).toBe('Login');
+    expect(wrapper.find('button').text()).toBe('Login with Google');
 
     expect(wrapper).toMatchSnapshot();
 });
