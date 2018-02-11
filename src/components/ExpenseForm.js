@@ -79,27 +79,26 @@ class ExpenseForm extends React.Component {
 
     render() {
         return (
-            <div>
-                <h2>Expense Form</h2>
-                { !!this.state.error && <p>{this.state.error}</p>}
-                <form onSubmit={this.onSubmit}>
-                    <input type='text' value={this.state.description} onChange={this.onDescriptionChange} placeholder='Description' autoFocus/>
-                    <input type='text' value={this.state.amount} onChange={this.onAmountChange} placeholder='amount' />
-                    <textarea value={this.state.note} onChange={this.onNoteChange} placeholder='Add a note for your expense (optional)'>
-                    </textarea>
-                    <SingleDatePicker
-                        date={this.state.createdAt} 
-                        onDateChange={this.onDateChange} 
-                        focused={this.state.calendarFocused} 
-                        onFocusChange={this.onFocusChange}
-                        numberOfMonths={1} //Show only one month
-                        isOutsideRange={(day) => false} //Select days before current day
-                    />
-                     <button 
+            <form className='form' onSubmit={this.onSubmit}>
+                { !!this.state.error && <p className='form__error'>{this.state.error}</p>}
+                <input className='text-input' type='text' value={this.state.description} onChange={this.onDescriptionChange} placeholder='Description' autoFocus/>
+                <input className='text-input' type='text' value={this.state.amount} onChange={this.onAmountChange} placeholder='amount' />
+                <textarea className='text-area'value={this.state.note} onChange={this.onNoteChange} placeholder='Add a note for your expense (optional)'>
+                </textarea>
+                <SingleDatePicker
+                    date={this.state.createdAt} 
+                    onDateChange={this.onDateChange} 
+                    focused={this.state.calendarFocused} 
+                    onFocusChange={this.onFocusChange}
+                    numberOfMonths={1} //Show only one month
+                    isOutsideRange={(day) => false} //Select days before current day
+                />
+                <div>
+                    <button className='button'
                         //disabled={!this.state.description || !this.state.amount}
                     >Submit</button>
-                </form>
-            </div>
+                </div>
+            </form>
         );
     }
 }
